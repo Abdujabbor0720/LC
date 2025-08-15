@@ -12,8 +12,8 @@ import { handleError } from 'src/lcs/utils/errorHandler';
 export class GroupsService {
   constructor(
     @InjectRepository(Group) private groupRepo: Repository<Group>,
-    private lcService: LcsService
-  ) { }
+    private lcService: LcsService,
+  ) {}
 
   async create(createGroupDto: CreateGroupDto) {
     try {
@@ -27,7 +27,10 @@ export class GroupsService {
 
   async findAll() {
     try {
-      const groups = await this.groupRepo.find({ order: { createdAt: 'DESC' }, relations: { lc: true } });
+      const groups = await this.groupRepo.find({
+        order: { createdAt: 'DESC' },
+        relations: { lc: true },
+      });
       return resSuccess(groups);
     } catch (error) {
       handleError(error);
@@ -36,7 +39,10 @@ export class GroupsService {
 
   async findOne(id: number) {
     try {
-      const group = await this.groupRepo.findOne({ where: { id }, relations: { lc: true } });
+      const group = await this.groupRepo.findOne({
+        where: { id },
+        relations: { lc: true },
+      });
       if (!group) {
         throw new NotFoundException('Group not found');
       }
@@ -49,7 +55,10 @@ export class GroupsService {
   async update(id: number, updateGroupDto: UpdateGroupDto) {
     try {
       await this.groupRepo.update(id, updateGroupDto);
-      const group = await this.groupRepo.findOne({ where: { id }, relations: { lc: true } });
+      const group = await this.groupRepo.findOne({
+        where: { id },
+        relations: { lc: true },
+      });
       if (!group) {
         throw new NotFoundException(`Group not found!`);
       }

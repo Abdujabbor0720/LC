@@ -12,8 +12,8 @@ import { resSuccess } from 'src/lcs/utils/resSuccess';
 export class StudentsService {
   constructor(
     @InjectRepository(Student) private studentRepo: Repository<Student>,
-    private groupService: GroupsService
-  ) { }
+    private groupService: GroupsService,
+  ) {}
 
   async create(createStudentDto: CreateStudentDto) {
     try {
@@ -27,7 +27,10 @@ export class StudentsService {
 
   async findAll() {
     try {
-      const students = await this.studentRepo.find({ order: { createdAt: 'DESC' }, relations: { group: true } });
+      const students = await this.studentRepo.find({
+        order: { createdAt: 'DESC' },
+        relations: { group: true },
+      });
       return resSuccess(students);
     } catch (error) {
       handleError(error);
@@ -36,11 +39,14 @@ export class StudentsService {
 
   async findOne(id: number) {
     try {
-      const student = await this.studentRepo.findOne({ where: { id }, relations: { group: true } });
+      const student = await this.studentRepo.findOne({
+        where: { id },
+        relations: { group: true },
+      });
       if (!student) {
         throw new NotFoundException(`Student not found!`);
       }
-      return resSuccess(student)
+      return resSuccess(student);
     } catch (error) {
       handleError(error);
     }
@@ -49,7 +55,10 @@ export class StudentsService {
   async update(id: number, updateStudentDto: UpdateStudentDto) {
     try {
       await this.studentRepo.update(id, updateStudentDto);
-      const student = await this.studentRepo.findOne({ where: { id }, relations: { group: true } });
+      const student = await this.studentRepo.findOne({
+        where: { id },
+        relations: { group: true },
+      });
       if (!student) {
         throw new NotFoundException(`Student not found!`);
       }
@@ -61,7 +70,10 @@ export class StudentsService {
 
   async remove(id: number) {
     try {
-      const student = await this.studentRepo.findOne({ where: { id }, relations: { group: true } });
+      const student = await this.studentRepo.findOne({
+        where: { id },
+        relations: { group: true },
+      });
       if (!student) {
         throw new NotFoundException(`Student not found!`);
       }

@@ -1,4 +1,4 @@
-import { Group } from 'src/groups/entities/group.entity';
+import { Teacher } from 'src/teachers/entities/teacher.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,21 +8,21 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('students')
-export class Student {
+@Entity('bonuses')
+export class Bonus {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar' })
-  name: string;
-
   @Column({ type: 'integer' })
-  age: number;
+  quantity: number;
 
-  @ManyToOne(() => Group, (group) => group.students, {
+  @Column('text')
+  description: string;
+
+  @ManyToOne(() => Teacher, (teacher) => teacher.bonuses, {
     onDelete: 'CASCADE',
   })
-  group: Group;
+  teacher: Teacher;
 
   @CreateDateColumn()
   createdAt: Date;

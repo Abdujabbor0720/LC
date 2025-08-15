@@ -9,7 +9,7 @@ import { resSuccess } from './utils/resSuccess';
 
 @Injectable()
 export class LcsService {
-  constructor(@InjectRepository(Lc) private lcRepo: Repository<Lc>) { }
+  constructor(@InjectRepository(Lc) private lcRepo: Repository<Lc>) {}
 
   async create(createLcDto: CreateLcDto) {
     try {
@@ -24,7 +24,7 @@ export class LcsService {
     try {
       const lcs = await this.lcRepo.find({
         order: { createdAt: 'DESC' },
-        relations: ['groups']
+        relations: ['groups'],
       });
       return resSuccess(lcs);
     } catch (error) {
@@ -34,7 +34,10 @@ export class LcsService {
 
   async findById(id: number) {
     try {
-      const lc = await this.lcRepo.findOne({ where: { id }, relations: { groups: true } });
+      const lc = await this.lcRepo.findOne({
+        where: { id },
+        relations: { groups: true },
+      });
       if (!lc) {
         throw new NotFoundException(`Learning Center not found!`);
       }
@@ -47,7 +50,10 @@ export class LcsService {
   async update(id: number, updateLcDto: UpdateLcDto) {
     try {
       await this.lcRepo.update(id, updateLcDto);
-      const lc = await this.lcRepo.findOne({ where: { id }, relations: { groups: true } });
+      const lc = await this.lcRepo.findOne({
+        where: { id },
+        relations: { groups: true },
+      });
       if (!lc) {
         throw new NotFoundException(`Learning Center not found`);
       }

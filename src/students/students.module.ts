@@ -6,11 +6,8 @@ import { Student } from './entities/student.entity';
 import { GroupsModule } from 'src/groups/groups.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Student]),
-    GroupsModule
-  ],
+  imports: [TypeOrmModule.forFeature([Student]), GroupsModule],
   controllers: [StudentsController],
   providers: [StudentsService],
 })
-export class StudentsModule { }
+export class StudentsModule {}

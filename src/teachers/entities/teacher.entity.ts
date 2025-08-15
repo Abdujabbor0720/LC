@@ -1,28 +1,32 @@
-import { Group } from 'src/groups/entities/group.entity';
+import { Bonus } from 'src/bonuses/entities/bonus.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('students')
-export class Student {
+@Entity('teachers')
+export class Teacher {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar' })
-  name: string;
+  full_name: string;
+
+  @Column({ type: 'varchar', unique: true })
+  phone_number: string;
 
   @Column({ type: 'integer' })
-  age: number;
+  experience: number;
 
-  @ManyToOne(() => Group, (group) => group.students, {
+  @OneToMany(() => Bonus, (bonus) => bonus.teacher, {
+    cascade: true,
     onDelete: 'CASCADE',
   })
-  group: Group;
+  bonuses: Bonus[];
 
   @CreateDateColumn()
   createdAt: Date;

@@ -9,6 +9,6 @@ import { LcsModule } from 'src/lcs/lcs.module';
   imports: [TypeOrmModule.forFeature([Group]), LcsModule],
   controllers: [GroupsController],
   providers: [GroupsService],
-  exports: [GroupsService]
+  exports: [GroupsService],
 })
 export class GroupsModule {}

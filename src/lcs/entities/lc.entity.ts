@@ -16,7 +16,10 @@ export class Lc {
   @Column({ type: 'varchar' })
   name: string;
 
-  @OneToMany(() => Group, (group) => group.lc)
+  @OneToMany(() => Group, (group) => group.lc, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   groups: Group[];
 
   @CreateDateColumn()
